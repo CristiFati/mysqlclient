@@ -92,10 +92,14 @@ def get_config_win32(options):
 
     extra_objects = []
 
-    library_dirs = [
-        os.path.join(connector, "lib", "mariadb"),
-        os.path.join(connector, "lib"),
-    ]
+    mariadb_custom_lib_path = os.environ.get("MARIADBCLIENT_CUSTOM_LIB_PATH")
+    if mariadb_custom_lib_path:
+        library_dirs = [mariadb_custom_lib_path]
+    else:
+        library_dirs = [
+            os.path.join(connector, "lib", "mariadb"),
+            os.path.join(connector, "lib"),
+        ]
     libraries = [
         "kernel32",
         "advapi32",
