@@ -111,6 +111,12 @@ def get_config_win32(options):
         "bcrypt",
         client,
     ]
+    zlib_custom_lib_path = os.environ.get("ZLIB_CUSTOM_LIB_PATH")
+    if zlib_custom_lib_path:
+        library_dirs.append(zlib_custom_lib_path)
+        zlib = os.environ.get("ZLIB_CUSTOM_LIB", "zlib")
+        libraries.append(zlib)
+
     include_dirs = [
         os.path.join(connector, "include", "mariadb"),
         os.path.join(connector, "include"),
